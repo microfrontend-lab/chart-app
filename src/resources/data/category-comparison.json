@@ -1,0 +1,7 @@
+[
+  { "category": "Apparel", "thisYear": 420, "lastYear": 350 },
+  { "category": "Shoes", "thisYear": 365, "lastYear": 300 },
+  { "category": "Sport Shoes", "thisYear": 275, "lastYear": 190 },
+  { "category": "Bags", "thisYear": 210, "lastYear": 240 },
+  { "category": "Accessories", "thisYear": 130, "lastYear": 110 }
+]

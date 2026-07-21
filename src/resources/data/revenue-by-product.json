@@ -1,0 +1,7 @@
+[
+  { "category": "Apparel", "revenue": 420 },
+  { "category": "Shoes", "revenue": 365 },
+  { "category": "Sport Shoes", "revenue": 275 },
+  { "category": "Bags", "revenue": 210 },
+  { "category": "Accessories", "revenue": 130 }
+]
