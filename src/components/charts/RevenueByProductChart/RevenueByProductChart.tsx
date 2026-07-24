@@ -3,15 +3,21 @@ import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recha
 import { Text } from '@/components/ui';
 import { getCategoryPalette, getToken } from '@/utils/chartColors';
 import type { ProductRevenue } from '@/types/chart';
+import type { WidgetProps } from '@/types/widget';
 import styles from './RevenueByProductChart.module.css';
 
 export interface RevenueByProductChartProps {
   data: ProductRevenue[];
+  theme?: WidgetProps['theme'];
 }
 
-export function RevenueByProductChart({ data }: RevenueByProductChartProps) {
-  const palette = useMemo(() => getCategoryPalette(), []);
-  const textColor = useMemo(() => getToken('--color-text-muted'), []);
+export function RevenueByProductChart({ data, theme }: RevenueByProductChartProps) {
+  // `theme` is a dependency (not otherwise used) so these recompute when the
+  // portal toggles the theme — see AnnualGrowthChart for why.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const palette = useMemo(() => getCategoryPalette(), [theme]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const textColor = useMemo(() => getToken('--color-text-muted'), [theme]);
 
   return (
     <div className={styles.container}>

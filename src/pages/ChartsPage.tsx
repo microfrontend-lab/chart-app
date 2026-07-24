@@ -6,9 +6,14 @@ import { RevenueByProductChart } from '@/components/charts/RevenueByProductChart
 import { CategoryComparisonChart } from '@/components/charts/CategoryComparisonChart';
 import { ChartSlot } from '@/components/ChartSlot';
 import { Text } from '@/components/ui';
+import type { WidgetProps } from '@/types/widget';
 import styles from './ChartsPage.module.css';
 
-export default function ChartsPage() {
+export interface ChartsPageProps {
+  theme?: WidgetProps['theme'];
+}
+
+export default function ChartsPage({ theme }: ChartsPageProps) {
   const growth = useAnnualGrowth();
   const revenue = useRevenueByProduct();
   const comparison = useCategoryComparison();
@@ -21,11 +26,11 @@ export default function ChartsPage() {
 
       <div className={styles.grid}>
         <ChartSlot status={growth.status} error={growth.error} empty={growth.data.length === 0}>
-          <AnnualGrowthChart data={growth.data} />
+          <AnnualGrowthChart data={growth.data} theme={theme} />
         </ChartSlot>
 
         <ChartSlot status={revenue.status} error={revenue.error} empty={revenue.data.length === 0}>
-          <RevenueByProductChart data={revenue.data} />
+          <RevenueByProductChart data={revenue.data} theme={theme} />
         </ChartSlot>
 
         <ChartSlot
@@ -33,7 +38,7 @@ export default function ChartsPage() {
           error={comparison.error}
           empty={comparison.data.length === 0}
         >
-          <CategoryComparisonChart data={comparison.data} />
+          <CategoryComparisonChart data={comparison.data} theme={theme} />
         </ChartSlot>
       </div>
     </div>

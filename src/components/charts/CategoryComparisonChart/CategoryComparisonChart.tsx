@@ -12,13 +12,17 @@ import {
 import { Text } from '@/components/ui';
 import { getToken } from '@/utils/chartColors';
 import type { CategoryComparisonPoint } from '@/types/chart';
+import type { WidgetProps } from '@/types/widget';
 import styles from './CategoryComparisonChart.module.css';
 
 export interface CategoryComparisonChartProps {
   data: CategoryComparisonPoint[];
+  theme?: WidgetProps['theme'];
 }
 
-export function CategoryComparisonChart({ data }: CategoryComparisonChartProps) {
+export function CategoryComparisonChart({ data, theme }: CategoryComparisonChartProps) {
+  // `theme` is a dependency (not otherwise used) so this recomputes when the
+  // portal toggles the theme — see AnnualGrowthChart for why.
   const colors = useMemo(
     () => ({
       thisYear: getToken('--color-primary'),
@@ -26,7 +30,8 @@ export function CategoryComparisonChart({ data }: CategoryComparisonChartProps) 
       grid: getToken('--color-border'),
       text: getToken('--color-text-muted'),
     }),
-    [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [theme],
   );
 
   return (

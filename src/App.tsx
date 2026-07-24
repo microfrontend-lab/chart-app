@@ -1,16 +1,25 @@
 import { BrowserRouter, Routes, Route, useInRouterContext } from 'react-router';
 import ChartsPage from './pages/ChartsPage';
+import { ThemeBadge } from './components/ThemeBadge';
+import { registerReactSingletonCheck } from './utils/reactSingletonCheck';
 import type { WidgetProps } from './types/widget';
 
-function AppRoutes() {
+// Runs once when this module is first evaluated — in both standalone and
+// embedded mode, since (unlike bootstrap.tsx) App.tsx runs in both.
+registerReactSingletonCheck('chartApp');
+
+function AppShell({ theme }: Pick<WidgetProps, 'theme'>) {
   return (
-    <Routes>
-      <Route path="/" element={<ChartsPage />} />
-    </Routes>
+    <>
+      <ThemeBadge theme={theme} />
+      <Routes>
+        <Route path="/" element={<ChartsPage theme={theme} />} />
+      </Routes>
+    </>
   );
 }
 
-export default function App({ basename = '/' }: WidgetProps) {
+export default function App({ basename = '/', theme }: WidgetProps) {
   // Standalone mode mounts with no ambient Router, so App must provide one.
   // Embedded mode mounts inside the portal's own <BrowserRouter>, nested
   // under a `path="<route>/*"` — a second <BrowserRouter> there would throw
@@ -19,12 +28,12 @@ export default function App({ basename = '/' }: WidgetProps) {
   const isEmbedded = useInRouterContext();
 
   if (isEmbedded) {
-    return <AppRoutes />;
+    return <AppShell theme={theme} />;
   }
 
   return (
     <BrowserRouter basename={basename}>
-      <AppRoutes />
+      <AppShell theme={theme} />
     </BrowserRouter>
   );
 }

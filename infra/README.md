@@ -1,16 +1,16 @@
 # chart-app infra
 
-Terraform for the `gs://mf-chart-app` bucket only.
+OpenTofu for the `gs://mf-chart-app` bucket only.
 
 ```bash
 cp terraform.tfvars.example terraform.tfvars
 # edit terraform.tfvars — set allowed_origins to the portal's origin(s)
-terraform init
-terraform plan
-terraform apply
+tofu init
+tofu plan
+tofu apply
 ```
 
-Remote state lives in `gs://mf-tfstate` under the `chart-app` prefix.
+Remote state lives in `gs://module-federation-lab-tfstate` under the `chart-app` prefix.
 
 **CORS matters here more than it looks.** The portal fetches `remoteEntry.js`
 *and* this app's CSS Module chunks cross-origin. If `allowed_origins` doesn't
