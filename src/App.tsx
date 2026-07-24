@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, useInRouterContext } from 'react-router';
 import ChartsPage from './pages/ChartsPage';
-import { ThemeBadge } from './components/ThemeBadge';
 import { registerReactSingletonCheck } from './utils/reactSingletonCheck';
 import type { WidgetProps } from './types/widget';
 
@@ -10,12 +9,9 @@ registerReactSingletonCheck('chartApp');
 
 function AppShell({ theme }: Pick<WidgetProps, 'theme'>) {
   return (
-    <>
-      <ThemeBadge theme={theme} />
-      <Routes>
-        <Route path="/" element={<ChartsPage theme={theme} />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<ChartsPage theme={theme} />} />
+    </Routes>
   );
 }
 
