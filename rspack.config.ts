@@ -10,10 +10,11 @@ export default defineConfig({
   mode: isDev ? 'development' : 'production',
   devtool: isDev ? 'cheap-module-source-map' : false,
   output: {
-    // See todo-app/rspack.config.ts for why this isn't 'auto': the initial
-    // <script> tag in index.html needs a build-time-known prefix so deep
-    // links served via the SPA not_found_page fallback resolve correctly.
-    publicPath: isDev ? '/' : '/mf-chart-app/',
+    // SCAFFOLD.md §10: must be 'auto', never a hardcoded absolute path — the
+    // remote loads from the portal's page, so a fixed prefix resolves chunk
+    // URLs (including CSS Module chunks) against the portal's own origin
+    // instead of this app's, 404ing everything but remoteEntry.js itself.
+    publicPath: 'auto',
     uniqueName: 'chartApp',
   },
   resolve: {
